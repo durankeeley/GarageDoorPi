@@ -20,6 +20,12 @@ DietPi need Python3 and GPIO
 sudo apt-get -y install python3 python3-rpi.gpio
 ```
 
+After Python 3 is installed pano-mqtt is required from pip
+
+```bash
+sudo pip3 install paho-mqtt
+```
+
 ### Sensors:
 
 ```python
@@ -28,7 +34,6 @@ import RPi.GPIO as GPIO
 import time
 
 #Report to a MQTT broker
-# pip3 install paho-mqtt
 import paho.mqtt.publish as publish
 Broker = '127.0.0.1'
 pub_topic = 'garage/garage-door/status'
