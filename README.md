@@ -1,8 +1,8 @@
 # Garage Door Raspberry Pi
 
-This project was done on DietPi (bullseye) on a Raspberry Pi 1 Model B+ with Python 3 this uses mostly @shrocky2 code but with it publishing to a MQTT broker. The relay is controlled by the listener of a mqtt topic by @eclipse.org
+This project was done on DietPi (bullseye) on a Raspberry Pi 1 Model B+ with Python 3 @shrocky2 code but with it publishing to a MQTT broker. The relay is controlled by the listener of a mqtt topic by @eclipse.org
 
-Systemd is used for start-up
+Systemd is used for start-up (copy and change .py file for the relay)
 
 ## References
 
@@ -12,7 +12,7 @@ Systemd is used for start-up
 
 ## Code
 
-## Prerequisites
+### Prerequisites
 
 DietPi need Python3 and GPIO
 
@@ -111,5 +111,53 @@ User=root
 
 [Install]
 WantedBy=multi-user.target
+```
+
+## Home Assistant
+
+The relay is controlled in Home Assistant with the sensors connecting to the MQTT broker
+
+### Prerequisites
+
+Integration: MQTT
+
+Home Assistant Community Store (HACS) with the frontend: button-card
+
+### Lovelace Card Code for the Garage Door Button
+
+```yaml
+type: custom:button-card
+name: Garage Door
+icon: mdi:power
+tap_action:
+  action: call-service
+  service: mqtt.publish
+  service_data:
+    topic: garage/garage-door/control
+    payload: activate
+
+```
+
+### Adding MQTT Sensors
+
+Edit the configuration.yaml
+
+```
+/config/configuration.yaml
+```
+
+```yaml
+sensor:
+  - platform: mqtt
+    name: "Garage Door"
+    state_topic: "garage/garage-door/status"
+```
+
+Then the lovelace Card:
+
+```yaml
+type: entity
+entity: sensor.garage_door
+name: Garage Door Status
 ```
 
