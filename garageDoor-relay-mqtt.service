@@ -1,0 +1,14 @@
+[Unit]
+Description=MQTT Garage Door Controller
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 sensor-mqtt.py
+WorkingDirectory=/home/dietpi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
