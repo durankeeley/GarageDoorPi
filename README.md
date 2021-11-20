@@ -1,7 +1,5 @@
 # Garage Door Raspberry Pi
 
-Table of Contents
-
 This project was done on DietPi (bullseye) on a Raspberry Pi 1 Model B+ with Python 3 @shrocky2 code but with it publishing to a MQTT broker. The relay is controlled by the listener of a mqtt topic by @eclipse.org
 
 Systemd is used for start-up (copy and change .py file for the relay)
