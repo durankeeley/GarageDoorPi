@@ -1,5 +1,9 @@
 # Garage Door Raspberry Pi
 
+Table of Contents
+
+[TOC]
+
 This project was done on DietPi (bullseye) on a Raspberry Pi 1 Model B+ with Python 3 @shrocky2 code but with it publishing to a MQTT broker. The relay is controlled by the listener of a mqtt topic by @eclipse.org
 
 Systemd is used for start-up (copy and change .py file for the relay)
@@ -9,6 +13,22 @@ Systemd is used for start-up (copy and change .py file for the relay)
 [shrocky2/GarageWeb (github.com)](https://github.com/shrocky2/GarageWeb)
 
 [Eclipse Paho | The Eclipse Foundation](https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php)
+
+## Hardware
+
+Jaycar NZ: 
+
+- [Security Alarm Reed Switch | Jaycar Electronics New Zealand](https://www.jaycar.co.nz/security-alarm-reed-switch/p/LA5072?pos=12&queryId=b229296d11a6e9c4ce93a8b3ba13294d&sort=relevance)
+- [Arduino Compatible 5V Relay Board | Jaycar Electronics New Zealand](https://www.jaycar.co.nz/arduino-compatible-5v-relay-board/p/XC4419?pos=1&queryId=ad476d62bb4f9582e3bc2b650496178c)
+
+| <img src="/Users/durankeeley/Desktop/GarageDoor-Pi/working/jaycar-alarm-reed.png" alt="jaycar-alarm-reed" style="zoom:50%;" /> | <img src="/Users/durankeeley/Desktop/GarageDoor-Pi/working/jaycar-5V-relay.png" alt="jaycar-5V-relay" style="zoom:50%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+Both are wired in a Normally CLOSED (NC)
+
+@TODO
+
+Wiring Diagram
 
 ## Code
 
@@ -48,7 +68,7 @@ time.sleep(1)
 while 1 >= 0:
     time.sleep(1)
 
-    if GPIO.input(16) == GPIO.HIGH and GPIO.input(18) == GPIO.HIGH:  #Door Status is Unknown
+    if GPIO.input(16) == GPIO.HIGH and GPIO.input(18) == GPIO.HIGH:  #Door Status is Moving
       publish.single(pub_topic,"moving",hostname=Broker, port=1883,)
       while GPIO.input(16) == GPIO.HIGH and GPIO.input(18) == GPIO.HIGH:
              time.sleep(.5)
@@ -124,24 +144,10 @@ The relay is controlled in Home Assistant with the sensors connecting to the MQT
 
 ### Prerequisites
 
-Integration: MQTT
+- Integration: MQTT
 
-Home Assistant Community Store (HACS) with the frontend: button-card
+- Home Assistant Community Store (HACS) with the frontend: button-card
 
-### Lovelace Card Code for the Garage Door Button
-
-```yaml
-type: custom:button-card
-name: Garage Door
-icon: mdi:power
-tap_action:
-  action: call-service
-  service: mqtt.publish
-  service_data:
-    topic: garage/garage-door/control
-    payload: activate
-
-```
 
 ### Adding MQTT Sensors
 
@@ -158,11 +164,26 @@ sensor:
     state_topic: "garage/garage-door/status"
 ```
 
-Then the lovelace Card:
+### Lovelace Card Code for the Garage Door Button
 
 ```yaml
-type: entity
+type: custom:button-card
+tap_action:
+  action: call-service
+  service: mqtt.publish
+  service_data:
+    topic: garage/garage-door/control
+    payload: activate
 entity: sensor.garage_door
-name: Garage Door Status
+icon: mdi:garage
+show_state: true
+styles: null
+state:
+  - icon: mdi:garage
+    value: closed
+  - icon: mdi:garage-open
+    value: open
 ```
+
+
 
