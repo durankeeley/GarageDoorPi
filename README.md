@@ -2,8 +2,6 @@
 
 Table of Contents
 
-[TOC]
-
 This project was done on DietPi (bullseye) on a Raspberry Pi 1 Model B+ with Python 3 @shrocky2 code but with it publishing to a MQTT broker. The relay is controlled by the listener of a mqtt topic by @eclipse.org
 
 Systemd is used for start-up (copy and change .py file for the relay)
@@ -21,7 +19,7 @@ Jaycar NZ:
 - [Security Alarm Reed Switch | Jaycar Electronics New Zealand](https://www.jaycar.co.nz/security-alarm-reed-switch/p/LA5072?pos=12&queryId=b229296d11a6e9c4ce93a8b3ba13294d&sort=relevance)
 - [Arduino Compatible 5V Relay Board | Jaycar Electronics New Zealand](https://www.jaycar.co.nz/arduino-compatible-5v-relay-board/p/XC4419?pos=1&queryId=ad476d62bb4f9582e3bc2b650496178c)
 
-| <img src="/Users/durankeeley/Desktop/GarageDoor-Pi/working/jaycar-alarm-reed.png" alt="jaycar-alarm-reed" style="zoom:50%;" /> | <img src="/Users/durankeeley/Desktop/GarageDoor-Pi/working/jaycar-5V-relay.png" alt="jaycar-5V-relay" style="zoom:50%;" /> |
+| <img src="./jaycar-alarm-reed.png" alt="jaycar-alarm-reed" style="zoom:50%;" /> | <img src="./jaycar-5V-relay.png" alt="jaycar-5V-relay" style="zoom:50%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 Both are wired in a Normally CLOSED (NC)
