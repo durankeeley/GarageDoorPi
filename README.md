@@ -33,7 +33,7 @@ Wiring Diagram
 DietPi need Python3 and GPIO
 
 ```bash
-sudo apt-get -y install python3 python3-rpi.gpio python3-pip
+sudo apt -y install python3 python3-rpi.gpio python3-pip
 ```
 
 After Python 3 is installed pano-mqtt is required from pip
